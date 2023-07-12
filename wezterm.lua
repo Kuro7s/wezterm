@@ -10,10 +10,8 @@ end
 
 config.color_scheme = 'Catppuccin Mocha'
 config.default_prog = { 'nu' }
-config.font = wezterm.font {
-    family = 'JetBrainsMono Nerd Font',
-    harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
-}
+config.font = wezterm.font 'JetBrainsMono Nerd Font'
+config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 config.hide_mouse_cursor_when_typing = false
 config.hide_tab_bar_if_only_one_tab = true
 config.window_padding = {
@@ -22,8 +20,34 @@ config.window_padding = {
     top = 0,
     bottom = 0,
 }
-config.skip_close_confirmation_for_processes_named = {
-    'nu',
+config.window_close_confirmation = 'NeverPrompt'
+
+local current_colors = wezterm.color.get_builtin_schemes()[config.color_scheme]
+local curr_tab_colors = current_colors.tab_bar
+
+config.window_frame = {
+    inactive_titlebar_bg = curr_tab_colors.background,
+    active_titlebar_bg = curr_tab_colors.background,
+    inactive_titlebar_fg = curr_tab_colors.foreground,
+    active_titlebar_fg = curr_tab_colors.foreground,
 }
+
+config.colors = {
+    tab_bar = {
+		background = curr_tab_colors.background,
+        active_tab = {
+            bg_color = current_colors.background,
+            fg_color = current_colors.foreground,
+        },
+        inactive_tab = curr_tab_colors.inactive_tab,
+        inactive_tab_hover = curr_tab_colors.inactive_tab_hover,
+        new_tab = curr_tab_colors.new_tab,
+        new_tab_hover = curr_tab_colors.new_tab_hover
+    }
+}
+
+wezterm.on('format-window-title', function(tab, _, _, _, _)
+    return 'WezTerm - ' .. tab.active_pane.title
+end)
 
 return config

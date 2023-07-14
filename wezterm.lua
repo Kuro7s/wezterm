@@ -13,7 +13,7 @@ config.default_prog = { 'nu' }
 config.font = wezterm.font 'JetBrainsMono Nerd Font'
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 config.hide_mouse_cursor_when_typing = false
-config.hide_tab_bar_if_only_one_tab = true
+config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
 config.window_padding = {
     left = 0,
     right = 0,
@@ -40,14 +40,14 @@ config.colors = {
             fg_color = current_colors.foreground,
         },
         inactive_tab = curr_tab_colors.inactive_tab,
-        inactive_tab_hover = curr_tab_colors.inactive_tab_hover,
+        inactive_tab_hover = curr_tab_colors.active_tab,
         new_tab = curr_tab_colors.new_tab,
         new_tab_hover = curr_tab_colors.new_tab_hover
     }
 }
 
-wezterm.on('format-window-title', function(tab, _, _, _, _)
-    return 'WezTerm - ' .. tab.active_pane.title
+wezterm.on('format-window-title', function()
+    return 'WezTerm'
 end)
 
 return config

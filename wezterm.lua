@@ -13,7 +13,7 @@ config.default_prog = { 'nu' }
 config.font = wezterm.font 'JetBrainsMono Nerd Font'
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 config.hide_mouse_cursor_when_typing = false
-config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
+config.hide_tab_bar_if_only_one_tab = true
 config.window_padding = {
     left = 0,
     right = 0,
